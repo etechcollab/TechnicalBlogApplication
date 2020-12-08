@@ -10,6 +10,7 @@ import technicalblog.model.User;
 import technicalblog.service.PostService;
 import technicalblog.service.UserService;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 @Controller
@@ -42,7 +43,7 @@ public class UserController {
     }
 
     @RequestMapping(value="users/logout", method = RequestMethod.POST)
-public String logout(Model model){
+public String logout(Model model) throws SQLException, ClassNotFoundException {
         ArrayList<Post> posts=postService.getAllPosts();
         model.addAttribute("posts",posts);
         return "index";

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import technicalblog.model.Post;
 import technicalblog.service.PostService;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -25,9 +26,16 @@ public class HomeController {
 
     @RequestMapping("/")
     public String getAllPosts(Model model) {
-   ArrayList<Post>posts= postService.getAllPosts();
+        ArrayList<Post>posts= null;
+        try {
+            posts = postService.getAllPosts();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
 
-    model.addAttribute("posts", posts);
+        model.addAttribute("posts", posts);
 
         return "index";
 
